@@ -3,14 +3,14 @@ package ex2305;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class Solicitud extends Comparable<Solicitud>{
+public class Solicitud implements Comparable<Solicitud>{
     private String asignatura;
     private int diaSem;
     private int franja;
     private int lab;
 
     public Solicitud(String nom, int dSem, int hora){
-        if (diaSem >0 && diaSem <8 && hora > 0 && hora < 4){
+        if (dSem >0 && dSem <8 && hora > 0 && hora < 4){
             asignatura = nom;
             diaSem = dSem;
             franja = hora;
@@ -58,7 +58,7 @@ public class Solicitud extends Comparable<Solicitud>{
 
     @Override
     public String toString() {
-        StringJoiner stringJoiner = new StringJoiner("(" + ", " + ", " + ", " + ")" );
+        StringJoiner stringJoiner = new StringJoiner(", ", "(" , ")" );
         stringJoiner.add(asignatura);
         stringJoiner.add(String.valueOf(diaSem));
         stringJoiner.add(String.valueOf(franja ));
@@ -71,7 +71,8 @@ public class Solicitud extends Comparable<Solicitud>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Solicitud solicitud = (Solicitud) o;
-        return diaSem == solicitud.diaSem && franja == solicitud.franja && Objects.equals(asignatura, solicitud.asignatura);
+        return diaSem == solicitud.diaSem && franja == solicitud.franja
+                && this.asignatura.equalsIgnoreCase(((Solicitud) o).asignatura);
     }
 
     @Override
@@ -85,7 +86,7 @@ public class Solicitud extends Comparable<Solicitud>{
         if(cmp == 0){
             cmp = Integer.compare(this.franja, o.franja);
             if (cmp == 0){
-                cmp = this.asignatura.compareTo(o.asignatura);
+                cmp = this.asignatura.compareToIgnoreCase(o.asignatura);
             }
         }
         return cmp;
