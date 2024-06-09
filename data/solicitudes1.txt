@@ -1,0 +1,14 @@
+POO-A; 1; 3
+POO-B; 1; 3
+POO-A; 2; 1
+POO-B; 2; 1
+Prg-A; 2; 1
+Prg-B; 2; 1
+PSC-A; 1; 1
+PSC-B; 5; 1
+IAx-A; 2; 1
+IAx-B; 2; 1
+Web-A; 1; 3
+Web-B; 1; 3
+Sec-A; 2; 1
+Sec-B; 2; 1
