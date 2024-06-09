@@ -1,72 +1,61 @@
-
 package ex2305;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.security.Key;
 import java.util.*;
 
 public class Laboratorios {
     private int maxLabs;
     private List<Solicitud> solicitudes;
     private SortedSet<Solicitud> erroresDeAsignacion;
-    private SortedMap<Integer, SortedMap<Integer, List<Solicitud>>> asignaciones;
+    private SortedMap<Integer, SortedMap<Integer, List<Solicitud>>> asignaciones; //diaSem, franja horaria
 
-    public Laboratorios(int x){
-        if(x<0){
-            throw new LabException("Argumentos erroneos");
-        }else{
-            this.maxLabs=x;
-            this.solicitudes=new ArrayList<>();
-            this.asignaciones=new TreeMap<>();
-            this.erroresDeAsignacion=new TreeSet<>();
+    public Laboratorios(int max){
+        if (max < 1){
+            throw new LabException("Arg no valido");
+        }else {
+            maxLabs = max;
+            asignaciones = new TreeMap<>();
+            erroresDeAsignacion = new TreeSet<>();
+            solicitudes = new ArrayList<>();
         }
     }
-
-    protected SortedSet<Solicitud> getErroresDeAsignacion() {
+    protected SortedSet<Solicitud> getErroresDeAsignacion(){
         return erroresDeAsignacion;
     }
-
-    protected void addSolicitud(Solicitud xd){
-        boolean found = false;
-        int pos = 0;
-        while(pos<solicitudes.size()&&!found) {
-            if(solicitudes.get(pos).equals(xd)){
-                found=true;
-            }else{
-                pos++;
+    protected void addSolicitud(Solicitud solicitud){
+        if (!solicitudes.contains(solicitud)){
+            solicitudes.add(solicitud);
+        }
+    }
+    public void addSolicitud(String args){
+        try {
+            try (Scanner scanner = new Scanner(args)){
+                scanner.useDelimiter("\\s*[;]\\s*");
+                String nom = scanner.next();
+                int num = scanner.nextInt();
+                int n = scanner.nextInt();
+                addSolicitud(new Solicitud(nom, num, n));
             }
-        }
-        if(!found){
-            solicitudes.add(xd);
-        }
-    }
-
-    public void addSolicitud(String lol){
-        String[] data = lol.split(";");
-        try{
-            String asi = data[0];
-            int dia = Integer.parseInt(data[1]);
-            int fran = Integer.parseInt(data[2]);
-            Solicitud aux = new Solicitud(asi, dia, fran);
-            addSolicitud(aux);
-        }catch (NumberFormatException e){
-            throw new LabException("Argumentos erroneos");
+        }catch (Exception e){
+            throw new LabException(e.getMessage());
         }
     }
-
     public SortedSet<Solicitud> getSolicitudesOrdenadas(){
-        SortedSet<Solicitud> solicitudSortedSet = new TreeSet<>(Comparator.comparing(s -> s.getAsignatura().toUpperCase()));
-        solicitudSortedSet.addAll(solicitudes);
-        return solicitudSortedSet;
+        SortedSet<Solicitud> sol = new TreeSet<>(Comparator.comparing(s -> s.getAsignatura().toUpperCase()));
+        sol.addAll(solicitudes);
+        return sol;
     }
-
     public void asignarLabs(){
-        this.erroresDeAsignacion=new TreeSet<>();
-        this.asignaciones=new TreeMap<>();
-        for(Solicitud aux : solicitudes){
-            asignarLabASolicitud(aux);
+        erroresDeAsignacion.clear();
+        asignaciones.clear();
+
+        for (Solicitud solicitud: solicitudes){
+            asignarLabASolicitud(solicitud);
         }
     }
 
@@ -156,45 +145,18 @@ public class Laboratorios {
 
         return "("+br + err + asi + ")";
     }
-
-    public void cargarSolicitudesDeFichero(String file) throws IOException {
-        try{
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line=br.readLine())!=null){
-                try{
-                    addSolicitud(line);
-                }catch (NumberFormatException ignored){
-                }
+    public void cargarSolicitudesDeFichero(String fich) throws IOException {
+        try {
+            File file = new File(fich);
+            try (Scanner scanner = new Scanner(file)){
+                addSolicitud(scanner.next()); //ns si esta bn
+            }catch (IOException E){
+                throw new IOException(E.getMessage());
+            }catch (Exception e){
+                //no hacer nada
             }
         }catch (IOException e){
-            throw new IOException("File not found");
-        }
-    }
-
-    protected void mostrarAsignaciones(PrintWriter writer) {
-        // Iterate through asignaciones
-        for (Map.Entry<Integer, SortedMap<Integer, List<Solicitud>>> entry : asignaciones.entrySet()) {
-            int dayOfWeek = entry.getKey();
-            SortedMap<Integer, List<Solicitud>> dayAssignments = entry.getValue();
-
-            // Iterate through assignments for each day
-            for (Map.Entry<Integer, List<Solicitud>> innerEntry : dayAssignments.entrySet()) {
-                int timeSlot = innerEntry.getKey();
-                List<Solicitud> solicitudesEnHorario = innerEntry.getValue();
-
-                // Print assignments
-                writer.println("DiaSem: " + dayOfWeek + "; Franja: " + timeSlot);
-                for (int i = 0; i < solicitudesEnHorario.size(); i++) {
-                    Solicitud solicitud = solicitudesEnHorario.get(i);
-                    writer.println("Lab: " + solicitud.getLab() +
-                            ": " +solicitud);
-                }
-            }
-        }
-        writer.println("ErroresDeAsignacion:");
-        for (Solicitud error : erroresDeAsignacion) {
-            writer.println(error);
+            throw new IOException(e.getMessage());
         }
     }
     public void guardarAsignacionesEnFichero(String fich) throws IOException{
@@ -203,5 +165,15 @@ public class Laboratorios {
         }catch (IOException e){
             throw new IOException(e.getMessage());
         }
+    }
+
+    protected void mostrarAsignaciones(PrintWriter printWriter){
+        for (Map.Entry<Integer, SortedMap<Integer, List<Solicitud>>> list : asignaciones.entrySet()){
+            printWriter.println( "DiaSem: " + list.getKey());
+            for (Map.Entry<Integer, List<Solicitud>> asig : list.getValue().entrySet()){
+                printWriter.println("Franja: " + asig.getKey() + "Lab: " + asig.getValue());
+            }
+        }
+        printWriter.println("Errores de asignacion: " + "\n" + erroresDeAsignacion);
     }
 }
