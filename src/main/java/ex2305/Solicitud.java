@@ -1,8 +1,9 @@
 package ex2305;
 
+import java.util.Objects;
 import java.util.StringJoiner;
 
-public class Solicitud {
+public class Solicitud extends Comparable<Solicitud>{
     private String asignatura;
     private int diaSem;
     private int franja;
@@ -63,5 +64,30 @@ public class Solicitud {
         stringJoiner.add(String.valueOf(franja ));
         stringJoiner.add(String.valueOf( lab));
         return stringJoiner.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Solicitud solicitud = (Solicitud) o;
+        return diaSem == solicitud.diaSem && franja == solicitud.franja && Objects.equals(asignatura, solicitud.asignatura);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(asignatura.toLowerCase(), diaSem, franja);
+    }
+
+    @Override
+    public int compareTo(Solicitud o) {
+        int cmp = Integer.compare((this.diaSem), o.diaSem);
+        if(cmp == 0){
+            cmp = Integer.compare(this.franja, o.franja);
+            if (cmp == 0){
+                cmp = this.asignatura.compareTo(o.asignatura);
+            }
+        }
+        return cmp;
     }
 }
