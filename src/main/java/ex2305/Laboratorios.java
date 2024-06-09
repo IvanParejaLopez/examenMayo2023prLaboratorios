@@ -149,7 +149,9 @@ public class Laboratorios {
         try {
             File file = new File(fich);
             try (Scanner scanner = new Scanner(file)){
-                addSolicitud(scanner.next()); //ns si esta bn
+                while (scanner.hasNextLine()){
+                    addSolicitud(scanner.nextLine()); //ns si esta bn
+                }
             }catch (IOException E){
                 throw new IOException(E.getMessage());
             }catch (Exception e){

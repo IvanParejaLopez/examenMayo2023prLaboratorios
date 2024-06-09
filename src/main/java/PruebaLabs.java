@@ -85,7 +85,6 @@ public class PruebaLabs {
 			labs.asignarLabs();
 			System.out.println("\nLaboratorios:");
 			System.out.println(labs);
-			labs.guardarAsignacionesEnFichero("data/asignaciones.txt");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
