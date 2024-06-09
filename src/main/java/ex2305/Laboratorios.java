@@ -150,7 +150,12 @@ public class Laboratorios {
             File file = new File(fich);
             try (Scanner scanner = new Scanner(file)){
                 while (scanner.hasNextLine()){
-                    addSolicitud(scanner.nextLine()); //ns si esta bn
+                    try {
+                        String s = scanner.nextLine();
+                        addSolicitud(s); //sé que me sobran try, pero más vale que sobren a que falten
+                    }catch (Exception e){
+                        //no hacer nada
+                    }
                 }
             }catch (IOException E){
                 throw new IOException(E.getMessage());
@@ -158,7 +163,7 @@ public class Laboratorios {
                 //no hacer nada
             }
         }catch (IOException e){
-            throw new IOException(e.getMessage());
+            throw new IOException("File not found");
         }
     }
     public void guardarAsignacionesEnFichero(String fich) throws IOException{
