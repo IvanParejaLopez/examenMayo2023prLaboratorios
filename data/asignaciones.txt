@@ -1,0 +1,19 @@
+DiaSem: 1; Franja: 1
+Lab: 0: (PSC-A, 1, 1, 0)
+DiaSem: 1; Franja: 3
+Lab: 0: (POO-A, 1, 3, 0)
+Lab: 1: (POO-B, 1, 3, 1)
+Lab: 2: (Web-A, 1, 3, 2)
+DiaSem: 2; Franja: 1
+Lab: 0: (POO-A, 2, 1, 0)
+Lab: 1: (POO-B, 2, 1, 1)
+Lab: 2: (Prg-A, 2, 1, 2)
+DiaSem: 5; Franja: 1
+Lab: 0: (PSC-B, 5, 1, 0)
+ErroresDeAsignacion:
+(Web-B, 1, 3, -1)
+(IAx-A, 2, 1, -1)
+(IAx-B, 2, 1, -1)
+(Prg-B, 2, 1, -1)
+(Sec-A, 2, 1, -1)
+(Sec-B, 2, 1, -1)
