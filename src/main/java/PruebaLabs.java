@@ -1,4 +1,3 @@
-/*
 import ex2305.*;
 
 import java.io.PrintWriter;
@@ -93,4 +92,3 @@ public class PruebaLabs {
 	}
 }
 
- */
