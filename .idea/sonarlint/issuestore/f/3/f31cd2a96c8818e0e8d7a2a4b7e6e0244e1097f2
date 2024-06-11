@@ -1,0 +1,20 @@
+
+0
+java:S1220""Move this file to a named package.
+]
+java:S1192"HDefine a constant instead of duplicating this literal "Iguales" 3 times.(òäˆM
+e
+java:S1192"JDefine a constant instead of duplicating this literal "Distintos" 3 times.(¹ÈÚ—ÿÿÿÿÿ
+E	java:S106"+Replace this use of System.out by a logger.(­ÎºÊüÿÿÿÿ
+@	java:S106	"+Replace this use of System.out by a logger.(ó˜òÌ
+E	java:S106
+"+Replace this use of System.out by a logger.(¿Œùÿÿÿÿ
+?	java:S106"+Replace this use of System.out by a logger.(òäˆM
+E	java:S106"+Replace this use of System.out by a logger.(¹ÈÚ—ÿÿÿÿÿ
+?	java:S106"+Replace this use of System.out by a logger.(òäˆM
+E	java:S106"+Replace this use of System.out by a logger.(¹ÈÚ—ÿÿÿÿÿ
+?	java:S106"+Replace this use of System.out by a logger.(òäˆM
+E	java:S106"+Replace this use of System.out by a logger.(¹ÈÚ—ÿÿÿÿÿ
+E	java:S106"+Replace this use of System.out by a logger.(è¦õŠøÿÿÿÿ
+@	java:S106"+Replace this use of System.out by a logger.(®ê‘¼
+@	java:S106 "+Replace this use of System.out by a logger.(¨€ö»
