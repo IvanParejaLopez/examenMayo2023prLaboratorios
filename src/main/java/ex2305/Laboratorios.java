@@ -59,7 +59,7 @@ public class Laboratorios {
         }
     }
 
-    protected void asignarLabASolicitud(Solicitud aux) {
+    protected void asignarLabASolicitud(Solicitud aux) { //ver que pijas hizo aqui
         aux.setLab(-1);
 
         // Get the assignments for the day of the week
