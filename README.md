@@ -1,5 +1,8 @@
 "# practicaAlturasRepe" 
 Esto es una solucion para el ejercicio de los labroratorios.
+
+
+//------------------------------------------------------------------------------------
 Ademas he incluido un poco de "Esto es un file 🗣️🗣️🆎❗""Esto es un file 🗣️🗣️🆎❗""Esto es un file 🗣️🗣️🆎❗"
 "Esto es un file 🗣️🗣️🆎❗"
 "Esto es un file 🗣️🗣️🆎❗"
@@ -22,3 +25,4 @@ Ademas he incluido un poco de "Esto es un file 🗣️🗣️🆎❗""Esto es un
 "Esto es un file 🗣️🗣️🆎❗"
 "Esto es un file 🗣️🗣️🆎❗"
 "Esto es un file 🗣️🗣️🆎❗"
+//-----------------------------------------------------------------------------------------
