@@ -59,17 +59,18 @@ public class Laboratorios {
         }
     }
 
+
     protected void asignarLabASolicitud(Solicitud aux) {
         // Inicializa el laboratorio de la solicitud a -1 (sin asignar)
         aux.setLab(-1);
 
         // Obtiene las asignaciones para el día de la semana de la solicitud.
         // Si no existen, crea un nuevo TreeMap para ese día.
-        SortedMap<Integer, List<Solicitud>> asignacionesDia = asignaciones.computeIfAbsent(aux.getDiaSem(), k -> new TreeMap<>());
+        SortedMap<Integer, List<Solicitud>> asignacionesDia = asignaciones.getOrDefault(aux.getDiaSem(), new TreeMap<>());
 
         // Obtiene la lista de asignaciones para la franja horaria de la solicitud.
         // Si no existe una lista para esa franja, crea una nueva ArrayList.
-        List<Solicitud> solicitudesEnHorario = asignacionesDia.computeIfAbsent(aux.getFranja(), k -> new ArrayList<>());
+        List<Solicitud> solicitudesEnHorario = asignacionesDia.getOrDefault(aux.getFranja(), new ArrayList<>());
 
         // Verifica si hay laboratorios disponibles para la franja horaria.
         if (solicitudesEnHorario.size() < maxLabs) {
@@ -80,6 +81,12 @@ public class Laboratorios {
             // El número del laboratorio es el índice de la solicitud en la lista (empezando desde 0).
             int labNum = solicitudesEnHorario.size() - 1;
             aux.setLab(labNum);
+
+            // Actualiza asignacionesDia con la nueva lista de solicitudes en horario.
+            asignacionesDia.put(aux.getFranja(), solicitudesEnHorario);
+
+            // Actualiza el mapa de asignaciones con el nuevo asignacionesDia.
+            asignaciones.put(aux.getDiaSem(), asignacionesDia);
         } else {
             // Si no hay laboratorios disponibles, añade la solicitud a la lista de errores de asignación.
             erroresDeAsignacion.add(aux);

@@ -1,9 +1,5 @@
 DiaSem: 1
-Franja: 1Lab: [(PSC-A, 1, 1, 0)]
-Franja: 3Lab: [(POO-A, 1, 3, 0), (POO-B, 1, 3, 1), (Web-A, 1, 3, 2)]
 DiaSem: 2
-Franja: 1Lab: [(POO-A, 2, 1, 0), (POO-B, 2, 1, 1), (Prg-A, 2, 1, 2)]
 DiaSem: 5
-Franja: 1Lab: [(PSC-B, 5, 1, 0)]
 Errores de asignacion: 
-[(Web-B, 1, 3, -1), (IAx-A, 2, 1, -1), (IAx-B, 2, 1, -1), (Prg-B, 2, 1, -1), (Sec-A, 2, 1, -1), (Sec-B, 2, 1, -1)]
+[]
