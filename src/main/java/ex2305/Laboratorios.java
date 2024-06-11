@@ -93,7 +93,6 @@ public class Laboratorios {
         }
     }
 
-
     @Override
     public String toString() {
         StringBuilder br = new StringBuilder();
